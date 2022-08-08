@@ -5,16 +5,19 @@ h1 {
   color: blue;
 }
 
-div {
+p {
+  color: green;
+}
+/* div {
   width: 300px;
   border: 15px solid green;
   padding: 50px;
   margin: 20px;
-}
+} */
 
-canvas {
+/* canvas {
   width: 300px;
-  border: 15px solid green;
+  border: 5px solid green;
   padding: 50px;
   margin: 20px;
-}
+} */
