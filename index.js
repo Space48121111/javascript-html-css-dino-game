@@ -180,7 +180,7 @@ function updateObstacles() {
 }
 
 
-function detectCollison() {
+function detectCollision() {
     var npcColliWid = 4;
     var npcL = playerX+playerWidth/2-npcColliWid;
     var npcR = playerX+playerWidth/2+npcColliWid;
@@ -210,7 +210,7 @@ function gameTick() {
       updatePlayerPos();
       spawnObstacles();
       updateObstacles();
-      detectCollison();
+      detectCollision();
     }
 
       draw();
