@@ -26,29 +26,55 @@ const fs = require('fs').promises;
 // }
 // getAllUsers();
 
+var data = []
 
-function CreateUsername(userName, password) {
+function loadData() {
 	fs.readFile(__dirname + "/users.json")
 		.then(contents => {
-		var	data = JSON.parse(contents);
+		data = JSON.parse(contents);
+	});
+}
+// asynchronously pre-processed the data to return true or false beforehand
+loadData();
 
+function CreateUsername(userName, password) {
+	// fs.readFile(__dirname + "/users.json")
+	// 	.then(contents => {
+	// 	var	data = JSON.parse(contents);
 		// var data = getAllUsers();
+		for (var i=0; i<data.length; i++) {
+			if (data[i].userName == userName) {
+				return false;
+			}
+			console.log('Try to match '+data[i].userName+' with '+userName);
+		};
 
 		var obj = {
 			userName: userName,
 			password: password
 		}
 		data.push(obj);
+		console.log(data.length);
 		fs.writeFile('users.json', JSON.stringify(data), function(err) {
 			if (err) throw err;
 			// return true;
 		});
-	})
+	// })
 
-	// return false;
+	return true;
 }
 
+function CkUsername(userName, password) {
 
+		for (var i=0; i<data.length; i++) {
+			if (data[i].userName == userName && data[i].password == password) {
+				return true;
+			}
+			console.log('Try to match '+data[i].userName+' with '+userName);
+		};
+
+	return false;
+}
 
 const requestListener = function (req, res) {
 	if (req.method == 'GET' && (req.url == '/' || req.url == '/create'))
@@ -97,13 +123,17 @@ const requestListener = function (req, res) {
 		// var obj = JSON.parse(data2);
 		// console.log(obj.userName);
 
-		CreateUsername(username, password);
+		var success = CreateUsername(username, password);
 
 		console.log(username+password);
 		res.writeHead(200, {"Context-Type" : "text/html"});
-		res.write("This is a message from the server!");
+		// res.write("This is a message from the server!");
+		if (success) {
+			res.write('Success!');
+		} else {
+			res.write('Identical usernames!');
+		}
 		res.end();
-
 	}
 	// else
 	// {
@@ -123,9 +153,16 @@ const requestListener = function (req, res) {
 		var username = data1.split(':')[0];
 		var password = data1.split(':')[1];
 
+		var exist = CkUsername(username, password);
+
 		res.setHeader("Content-Type", "text/html");
 		res.writeHead(200);
-		res.end('game');
+		if (exist == true ) {
+			res.write('Success!')
+		} else {
+			res.write('Oops, wrong credentials!')
+		}
+		res.end();
 
 	}
 };
