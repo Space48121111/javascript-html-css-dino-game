@@ -129,7 +129,7 @@ function draw() {
       ctx.fillStyle = 'blue';
       ctx.lineWidth = 1;
       ctx.font = '20px verdana';
-      ctx.fillText('Game over, well done!', 50, 80);
+      ctx.fillText('Game over! Well done!', 50, 80);
 
     }
 
