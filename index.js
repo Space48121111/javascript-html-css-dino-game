@@ -135,7 +135,7 @@ function draw() {
 
 }
 
-function handlerPlayerInput() {
+function handlePlayerInput() {
   // restart the game
   if (gg && jump) {
     playerY = floorHeight;
@@ -205,7 +205,7 @@ function gameTick() {
     // offset += 10;
     // if (offset > 500)
     //   offset=0;
-    handlerPlayerInput();
+    handlePlayerInput();
     if (!gg) {
       updatePlayerPos();
       spawnObstacles();
